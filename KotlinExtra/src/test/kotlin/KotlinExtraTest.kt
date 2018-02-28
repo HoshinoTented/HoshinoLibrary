@@ -1,7 +1,6 @@
 import org.junit.Test
-import top.tented.utils.forEach
+import top.tented.utils.*
 import java.util.jar.JarFile
-import top.tented.utils.get
 
 class KotlinExtraTest {
     @Test
@@ -21,4 +20,15 @@ class KotlinExtraTest {
                     }
                 }
             }.toTypedArray()
+
+    class TestClass(val field : String = "")
+
+    @Test
+    fun reflectDelegate() {
+        val value : CharArray? by FieldDelegate("132")
+
+        value?.forEach {
+            println(it)
+        }
+    }
 }
