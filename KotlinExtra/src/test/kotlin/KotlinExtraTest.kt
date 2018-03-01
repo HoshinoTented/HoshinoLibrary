@@ -1,3 +1,4 @@
+import org.intellij.lang.annotations.Language
 import org.junit.Test
 import top.tented.utils.*
 import java.util.jar.JarFile
@@ -21,8 +22,6 @@ class KotlinExtraTest {
                 }
             }.toTypedArray()
 
-    class TestClass(val field : String = "")
-
     @Test
     fun reflectDelegate() {
         val value : CharArray? by FieldDelegate("132")
@@ -30,5 +29,24 @@ class KotlinExtraTest {
         value?.forEach {
             println(it)
         }
+    }
+
+    @Test
+    fun jsonTest() {
+        json {
+            "my" to obj {
+                "name" to obj {
+                    "first" to "Hoshino"
+                    "last" to "Tented"
+                }
+
+                "age" to 14
+
+                "things" to arrayListOf(1, 2, 3)
+            }
+        }.run(::println)
+
+        @Language("JSON") val json =
+                """{"my":{"name":{"last":"Tented", "first":"Hoshino"}, "things":[1, 2, 3], "age":14}}"""
     }
 }

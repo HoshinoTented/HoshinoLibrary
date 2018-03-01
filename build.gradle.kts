@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 buildscript {
     var kotlinVersion : String by extra
-    kotlinVersion = "1.2.21"
+    kotlinVersion = "1.2.30"
 
     repositories {
         mavenCentral()
@@ -20,7 +20,7 @@ apply {
 }
 
 plugins {
-    kotlin("jvm") version "1.2.21"
+    kotlin("jvm") version "1.2.30"
 }
 
 allprojects {
@@ -34,8 +34,14 @@ allprojects {
         kotlin("jvm")
     }
 
+    repositories {
+        mavenCentral()
+    }
+
     dependencies {
         implementation(kotlin("stdlib-jdk8", kotlinVersion))
+
+        testImplementation("junit", "junit", "4.12")
     }
 
     tasks.withType<KotlinCompile> {
