@@ -1,9 +1,8 @@
 package top.tented.utils
 
-import java.util.*
+import java.util.Random
 import java.util.regex.Matcher
 import java.util.regex.Pattern
-import kotlin.reflect.KClass
 
 operator fun String.get(from : Int, end : Int) =
         substring(
@@ -22,16 +21,10 @@ operator fun CharSequence.times(times : Int) =
 
 operator fun CharSequence.div(value : Int) : List<String> = splitWithLength(((this.length / value.toDouble()) + 0.5).toInt())
 
-@Suppress("IMPLICIT_CAST_TO_ANY")
-inline fun <reified T : Any> String.cast(extra : (KClass<T>) -> T? = { null }) =
-        when (T::class) {
-            java.io.File::class -> java.io.File(this)
-            java.net.URL::class -> java.net.URL(this)
-            StringBuilder::class -> StringBuilder(this)
-            Class::class -> Class.forName(this)
-
-            else -> if (this is T) this else extra(T::class)
-        } as? T
+fun String.toFile(root : String = "" ) = java.io.File(root + this)
+fun String.toUrl() = java.net.URL(this)
+fun String.toBuilder() = StringBuilder(this)
+fun String.toClass() = Class.forName(this)
 
 fun CharSequence.splitWithLength(length : Int) : List<String> =
         if (length > 0) {
