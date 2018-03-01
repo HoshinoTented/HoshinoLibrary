@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package top.tented.internet
 
 import java.io.*
@@ -10,7 +12,7 @@ import java.nio.charset.Charset
  * @param url 将被请求的网页地址
  */
 class Request(url : String) {
-    companion object {}
+    companion object;
 
     private val header : HashMap<String, String> = HashMap()        //本请求的header
 
@@ -30,8 +32,7 @@ class Request(url : String) {
      * 获取url的文本内容
      * @return 返回url的文本内容
      */
-    fun doGet() : String        //如果可以的话, 其实是打算用doPost来替代doGet的......但是我对这方面不是很了解, 不知道doGet和doPost有什么区别, 要是有的话就完蛋了...
-    {
+    fun doGet() : String {        //如果可以的话, 其实是打算用doPost来替代doGet的......但是我对这方面不是很了解, 不知道doGet和doPost有什么区别, 要是有的话就完蛋了...
         val connection : HttpURLConnection? = url.openConnection() as? HttpURLConnection
 
         if (connection != null) {

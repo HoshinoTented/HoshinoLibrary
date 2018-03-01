@@ -27,13 +27,13 @@ class Config {
     /**
      * 返回本配置文件的所有键构成的Set
      */
-    fun keySet() =
-            file.takeIf { it.exists() }?.let {
-                Properties().run {
-                    load(FileInputStream(it))
-                    keys
-                }
-            } ?: emptySet<Any>()
+    val keySet
+        get() = file.takeIf { it.exists() }?.let {
+            Properties().run {
+                load(FileInputStream(it))
+                keys
+            }
+        } ?: emptySet<Any>()
 
     /**
      * 移除某个键
