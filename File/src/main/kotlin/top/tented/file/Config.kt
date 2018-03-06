@@ -19,8 +19,8 @@ class Config(val file : File) {
     }
 
     val properties = Properties()
-    val input = FileInputStream(file)
-    val output = FileOutputStream(file)
+    val input by lazy { FileInputStream(file) }
+    val output by lazy { FileOutputStream(file) }
 
     /**
      * 返回本配置文件的所有键构成的Set

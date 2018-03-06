@@ -16,15 +16,15 @@ class FileTest {
      */
     @Test
     fun loadOrSaveWithSameStream() {
-        Config("/home/hoshino/Projects/IntelliJ/Kotlin/MainLibrary/File/data/test.properties").run {
-            val start = System.currentTimeMillis()
-            (1..1000).forEach {
-                set("testValue", it)
-                println(get("testValue"))
+        val start = System.currentTimeMillis()
+        (0 until 1000).forEach {
+            Config("/home/hoshino/Projects/IntelliJ/Kotlin/MainLibrary/File/data/$it.properties").run {
+                set("key", "value")
+                get("key")
             }
-
-            println(System.currentTimeMillis() - start)
         }
+
+        println(System.currentTimeMillis() - start)
     }
 
     /**
