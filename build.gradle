@@ -12,6 +12,7 @@ buildscript {
 
 allprojects {
     group 'com.github.HoshinoTented'
+    version '1.0.6.4'
 
     apply plugin: 'kotlin'
 
