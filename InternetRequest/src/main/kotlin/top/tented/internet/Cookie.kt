@@ -2,7 +2,6 @@ package top.tented.internet
 
 class Cookie(private val cookie : MutableMap<String, String> = HashMap()) {
     companion object {
-        @JvmName("[ERROR! => Not found method]")
         operator fun invoke(cookie : String) = Cookie(
                 HashMap<String, String>().apply map@{
                     cookie.split(';').forEach {
