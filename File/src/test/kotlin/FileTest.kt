@@ -7,8 +7,8 @@ import java.util.Properties
 
 class FileTest {
     val file = File("/home/hoshino/Projects/IntelliJ/Kotlin/MainLibrary/File/data/test.properties")
-    val input = FileInputStream(file)
-    val output = FileOutputStream(file)
+    val input by lazy { FileInputStream(file) }
+    val output by lazy { FileOutputStream(file) }
 
     /**
      * 看这个名字都应该知道是干啥的了
@@ -35,6 +35,15 @@ class FileTest {
         Properties().apply {
             load(input)
             load(input)
+        }
+    }
+
+    @Test
+    fun changeSet() {
+        Config(file).run {
+            reset()
+            properties["1"] = "2"
+            properties.store(output, null)
         }
     }
 }

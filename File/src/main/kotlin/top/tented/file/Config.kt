@@ -22,6 +22,12 @@ class Config(val file : File) {
     val input by lazy { FileInputStream(file) }
     val output by lazy { FileOutputStream(file) }
 
+    init {
+        file.takeIf { it.isDirectory }?.run {
+            throw IllegalArgumentException("Config file must not be a directory")
+        }
+    }
+
     /**
      * 返回本配置文件的所有键构成的Set
      */
@@ -47,6 +53,12 @@ class Config(val file : File) {
                     }
                 }
             } ?: false
+
+    fun reset() {
+        file.delete()
+        file.parentFile.mkdirs()
+        file.createNewFile()
+    }
 
     /**
      * 读取配置文件中的某个键
