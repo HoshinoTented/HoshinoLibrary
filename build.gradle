@@ -1,0 +1,31 @@
+buildscript {
+    ext.kotlinVersion = '1.2.30'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    }
+}
+
+allprojects {
+    group 'com.github.HoshinoTented'
+
+    apply plugin: 'kotlin'
+
+    repositories {
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+
+    dependencies {
+        implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+        testImplementation 'junit:junit:4.12'
+    }
+
+    compileKotlin {
+        kotlinOptions.jvmTarget = '1.8'
+    }
+}
