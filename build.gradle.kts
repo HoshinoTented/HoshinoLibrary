@@ -16,7 +16,6 @@ val kotlinVersion : String by extra
 
 apply {
     plugin("kotlin")
-    plugin("maven")
 }
 
 plugins {
