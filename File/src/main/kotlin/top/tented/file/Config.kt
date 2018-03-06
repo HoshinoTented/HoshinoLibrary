@@ -3,6 +3,8 @@ package top.tented.file
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
+import java.io.InputStream
+import java.io.OutputStream
 import java.util.*
 
 /**
@@ -11,26 +13,22 @@ import java.util.*
  * @date 2018/1/29 7:10
  */
 
-class Config {
-    companion object
-
-    val file : File
-
-    constructor(fileName : String) {
-        this.file = File(fileName)
+class Config(val file : File) {
+    companion object {
+        operator fun invoke(fileName : String) = Config(File(fileName))
     }
 
-    constructor(file : File) {
-        this.file = file
-    }
+    val properties = Properties()
+    val input = FileInputStream(file)
+    val output = FileOutputStream(file)
 
     /**
      * 返回本配置文件的所有键构成的Set
      */
     val keySet
         get() = file.takeIf { it.exists() }?.let {
-            Properties().run {
-                load(FileInputStream(it))
+            properties.run {
+                load(input)
                 keys
             }
         } ?: emptySet<Any>()
@@ -41,11 +39,11 @@ class Config {
      */
     fun remove(key : String) =
             file.takeIf { it.exists() }?.let {
-                Properties().run {
-                    load(FileInputStream(it))
+                properties.run {
+                    load(input)
                     takeIf { it.containsKey(key) }?.run {
                         remove(key)
-                        store(FileOutputStream(it), null)
+                        store(output, null)
                     }
                 }
             } ?: false
@@ -56,8 +54,8 @@ class Config {
      */
     operator fun get(key : String) =
             file.takeIf { it.exists() }?.let {
-                Properties().run {
-                    load(FileInputStream(it))
+                properties.run {
+                    load(input)
                     this.getProperty(key)
                 }
             }
@@ -69,15 +67,15 @@ class Config {
      */
     operator fun set(key : String, value : Any?) =
             file.let {
-                it.takeIf { it.exists() }?.run {
+                it.takeIf { ! it.exists() }?.run {
                     parentFile.mkdirs()
                     createNewFile()
                 }
 
-                Properties().run {
-                    load(FileInputStream(it))
+                properties.run {
+                    load(input)
                     setProperty(key, value.toString())
-                    store(FileOutputStream(it), null)
+                    store(output, null)
                 }
             }
 }
