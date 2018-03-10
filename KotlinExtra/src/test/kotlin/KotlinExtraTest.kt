@@ -1,6 +1,8 @@
+import com.google.gson.Gson
 import org.intellij.lang.annotations.Language
 import org.junit.Test
 import top.tented.utils.*
+import java.io.File
 import java.util.jar.JarFile
 
 class KotlinExtraTest {
@@ -48,5 +50,19 @@ class KotlinExtraTest {
 
         @Language("JSON") val json =
                 """{"my":{"name":{"last":"Tented", "first":"Hoshino"}, "things":[1, 2, 3], "age":14}}"""
+    }
+
+    @Test
+    fun gsonTest() {
+        Gson().let { gson ->
+            val list = listOf("1", "2", "3")
+            val file = File("/home/hoshino/Projects/IntelliJ/Kotlin/MainLibrary/KotlinExtra/src/main/resources/listJson.json")
+
+            gson.toJson(list).let {
+                file.writeText(it)
+            }
+
+            println(gson.fromJsonByType<List<Gson>>(file.readText()))
+        }
     }
 }
