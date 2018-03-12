@@ -56,13 +56,18 @@ class KotlinExtraTest {
     fun gsonTest() {
         Gson().let { gson ->
             val list = listOf("1", "2", "3")
-            val file = File("/home/hoshino/Projects/IntelliJ/Kotlin/MainLibrary/KotlinExtra/src/main/resources/listJson.json")
+            val file = File("/home/hoshino/Projects/IntelliJ/Kotlin/MainLibrary/KotlinExtra/src/test/resources/listJson.json")
 
             gson.toJson(list).let {
                 file.writeText(it)
             }
 
-            println(gson.fromJsonByType<List<Gson>>(file.readText()))
+            println(gson.fromJsonByType<List<String>>(file.readText()))
         }
+    }
+
+    @Test
+    fun shell() {
+        println(top.tented.utils.shell("echo Hello world!"))
     }
 }

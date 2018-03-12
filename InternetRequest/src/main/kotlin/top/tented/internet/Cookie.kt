@@ -2,9 +2,9 @@ package top.tented.internet
 
 class Cookie(private val cookie : MutableMap<String, String> = HashMap()) {
     companion object {
-        operator fun invoke(cookie : String) = Cookie(
+        operator fun invoke(cookie : String?) = Cookie(
                 HashMap<String, String>().apply map@{
-                    cookie.split(';').forEach {
+                    cookie?.split(';')?.forEach {
                         it.trim().split('=').apply list@{
                             if(size > 1) this@map[this[0]] = this[1]
                         }

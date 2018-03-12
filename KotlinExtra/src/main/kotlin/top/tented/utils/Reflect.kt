@@ -1,6 +1,7 @@
 package top.tented.utils
 
 import java.lang.reflect.Field
+import java.lang.reflect.Method
 import java.util.jar.JarFile
 import kotlin.reflect.KProperty
 
@@ -10,6 +11,7 @@ class FieldDelegate<T>(val obj : Any?) {
 		isAccessible = true
 		get(obj)
 	} as? T
+
 	operator fun setValue(_this : Any?, property : KProperty<*>, value : T?) = obj?.javaClass?.getDeclaredField(property.name)?.run {
 		isAccessible = true
 		set(obj, value)
@@ -37,12 +39,11 @@ inline fun <reified T : Any> T.function( name : String, vararg args : Any ) : An
 }
 
 @Throws(NoSuchFieldException::class)
-inline fun <reified T : Any?> T.field( name : String ) : Any? {
+inline fun <reified T : Any?> T.field( name : String ) : Any? =
 	T::class.java.getDeclaredField(name).run {
 		this.isAccessible = true
-		return get(this@field)
+		get(this@field)
 	}
-}
 
 //Get classes from jar file
 fun Package.classes(jar : JarFile) =
