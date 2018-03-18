@@ -70,4 +70,10 @@ class KotlinExtraTest {
     fun shell() {
         println(top.tented.utils.shell("echo Hello world!"))
     }
+
+    @Test
+    fun lambdaTest() {
+        ArrayList<String>().apply {
+        }
+    }
 }
