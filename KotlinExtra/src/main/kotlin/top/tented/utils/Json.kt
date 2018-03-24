@@ -1,6 +1,7 @@
 package top.tented.utils
 
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import org.json.JSONArray
 import org.json.JSONObject
@@ -17,8 +18,12 @@ inline fun json(obj : JsonObject.() -> Unit) = JsonObject().apply(obj)
 
 inline fun <reified T> Gson.fromJson(json : String) : T = fromJson(StringReader(json))
 inline fun <reified T> Gson.fromJson(reader : Reader) : T = fromJson(reader, T::class.java)
+
 inline fun <reified T> Gson.fromJsonByType(json : String) : T = fromJsonByType(StringReader(json))
 inline fun <reified T> Gson.fromJsonByType(reader : Reader) : T = fromJson(
 	reader,
 	object : TypeToken<T>() {}.type
 )
+
+inline fun <reified T> GsonBuilder.registerTypeAdapter(adapter : Any) = registerTypeAdapter(T::class.java, adapter)
+inline fun <reified T> GsonBuilder.registerTypeHierarchyAdapter(adapter : Any) = registerTypeHierarchyAdapter(T::class.java, adapter)

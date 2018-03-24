@@ -1,5 +1,6 @@
 package top.tented.utils
 
+import org.intellij.lang.annotations.Language
 import java.util.Random
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -47,10 +48,10 @@ fun CharSequence.splitWithLength(length : Int) : List<String> =
             }
         } else throw StringIndexOutOfBoundsException(length)
 
-private fun CharSequence.match(regex : String, takeIf : Matcher.() -> Boolean) = Pattern.compile(regex).matcher(this).takeIf(takeIf)
+private fun CharSequence.match(@Language("RegExp") regex : String, takeIf : Matcher.() -> Boolean) = Pattern.compile(regex).matcher(this).takeIf(takeIf)
 
-fun CharSequence.matches(regex : String) = match(regex, Matcher::matches)
-fun CharSequence.find(regex : String) = match(regex, Matcher::find)
-fun CharSequence.lookingAt(regex : String) = match(regex, Matcher::lookingAt)
+fun CharSequence.matches(@Language("RegExp") regex : String) = match(regex, Matcher::matches)
+fun CharSequence.find(@Language("RegExp") regex : String) = match(regex, Matcher::find)
+fun CharSequence.lookingAt(@Language("RegExp") regex : String) = match(regex, Matcher::lookingAt)
 
 fun CharSequence.randomElement() = this[Random().nextInt(this.length)]
