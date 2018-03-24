@@ -1,3 +1,5 @@
+@file:Suppress("UNCHECKED_CAST")
+
 package top.tented.file
 
 import java.io.File
@@ -12,31 +14,26 @@ import java.io.ObjectOutputStream
  * @date 2018/1/29 6:41
  */
 
-fun File.writeObject(obj : Any)
-{
-    if (! exists())
-    {
-        parentFile.mkdirs()
-        createNewFile()
-    }
+fun File.writeObject(obj : Any) {
+	if (! exists()) {
+		parentFile.mkdirs()
+		createNewFile()
+	}
 
-    ObjectOutputStream(FileOutputStream(this)).writeObject(obj)
+	ObjectOutputStream(FileOutputStream(this)).use { it.writeObject(obj) }
 }
 
-fun File.readObject() : Any? =
-        if( ! exists() ) null
-        else ObjectInputStream(FileInputStream(this)).readObject()
+fun <T> File.readObject() : T? =
+	takeIf { exists() }?.run { ObjectInputStream(FileInputStream(this)).use(ObjectInputStream::readObject) as? T }
 
-fun File.remove() : Boolean
-{
-    if( isDirectory )
-    {
-        val files = listFiles()
+fun File.remove() : Boolean {
+	if (isDirectory) {
+		val files = listFiles()
 
-        files.forEach {
-            if( it.isDirectory ) remove() else it.delete()
-        }
-    }
+		files.forEach {
+			if (it.isDirectory) remove() else it.delete()
+		}
+	}
 
-    return delete()
+	return delete()
 }

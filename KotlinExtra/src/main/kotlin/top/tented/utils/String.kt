@@ -21,7 +21,7 @@ operator fun CharSequence.times(times : Int) =
 
 operator fun CharSequence.div(value : Int) : List<String> = splitWithLength(((this.length / value.toDouble()) + 0.5).toInt())
 
-fun String.toFile(root : String = "" ) = java.io.File(root + this)
+fun String.toFile(root : String = "") = java.io.File(root + this)
 fun String.toUrl() = java.net.URL(this)
 fun String.toBuilder() = StringBuilder(this)
 fun String.toClass() = Class.forName(this)
@@ -54,7 +54,3 @@ fun CharSequence.find(regex : String) = match(regex, Matcher::find)
 fun CharSequence.lookingAt(regex : String) = match(regex, Matcher::lookingAt)
 
 fun CharSequence.randomElement() = this[Random().nextInt(this.length)]
-
-fun CharSequence.isInt() = matches(Regex("-?\\d+"))
-fun CharSequence.isFloat() = matches(Regex("-?\\d+\\.\\d+"))
-fun CharSequence.isNumber() = isInt() || isFloat()

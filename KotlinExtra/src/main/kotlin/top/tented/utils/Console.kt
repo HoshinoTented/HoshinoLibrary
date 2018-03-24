@@ -17,6 +17,14 @@ fun forceRun(lambda : () -> Unit) {
     }
 }
 
+fun catchRun(lambda : () -> Unit) {
+    try {
+        lambda()
+    } catch ( e : Exception ) {
+        e.printStackTrace()
+    }
+}
+
 fun shell(command : String) : Pair<List<String>, List<String>> {
     var process : Process? = null
     var stdout = emptyList<String>()

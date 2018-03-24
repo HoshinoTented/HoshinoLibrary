@@ -44,9 +44,9 @@ class KotlinExtraTest {
 
                 "age" to 14
 
-                "things" to arrayListOf(1, 2, 3)
+                "things" to array(1, 2, 3)
             }
-        }.run(::println)
+        }.getJSONObject("my").get("things")::class.java.apply(::println)
 
         @Language("JSON") val json =
                 """{"my":{"name":{"last":"Tented", "first":"Hoshino"}, "things":[1, 2, 3], "age":14}}"""
@@ -71,9 +71,23 @@ class KotlinExtraTest {
         println(top.tented.utils.shell("echo Hello world!"))
     }
 
+    class RangeClass(val a : Int, val b : Long, val c : LongRange)
+
     @Test
-    fun lambdaTest() {
-        ArrayList<String>().apply {
+    fun closedRangeGson() {
+        val gson = Gson()
+        val closedRange = RangeClass(1, 2, 3L..4L)
+        val json = gson.toJson(closedRange).apply(::println)
+        gson.fromJson<RangeClass>(json).run {
+            println("a: $a")
+            println("b: $b")
+            println("c: $c")
         }
+    }
+
+    @Test
+    fun sourceTest() {
+        val gson = Gson()
+        gson.toJson(1 to 2)
     }
 }
