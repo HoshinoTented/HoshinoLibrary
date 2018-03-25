@@ -19,7 +19,7 @@ class Config(val file : File) {
     }
 
     val properties = Properties()
-    val input by lazy { FileInputStream(file) }
+    val input get() = FileInputStream(file)
     val output get() = FileOutputStream(file)      //使用同一个outputStream会导致数据重复
 
     init {
