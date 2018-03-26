@@ -3,6 +3,7 @@ import org.intellij.lang.annotations.Language
 import org.junit.Test
 import top.tented.utils.*
 import java.io.File
+import java.util.Calendar
 import java.util.jar.JarFile
 
 class KotlinExtraTest {
@@ -89,5 +90,13 @@ class KotlinExtraTest {
     fun sourceTest() {
         val gson = Gson()
         gson.toJson(1 to 2)
+    }
+
+    /**
+     * 用来测试 对于扩展属性的委托
+     */
+    @Test
+    fun calendarDelegate() {
+        println(Calendar.getInstance().year)
     }
 }
