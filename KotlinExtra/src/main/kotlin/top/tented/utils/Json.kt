@@ -2,6 +2,7 @@ package top.tented.utils
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
 import org.json.JSONArray
 import org.json.JSONObject
@@ -27,3 +28,11 @@ inline fun <reified T> Gson.fromJsonByType(reader : Reader) : T = fromJson(
 
 inline fun <reified T> GsonBuilder.registerTypeAdapter(adapter : Any) = registerTypeAdapter(T::class.java, adapter)
 inline fun <reified T> GsonBuilder.registerTypeHierarchyAdapter(adapter : Any) = registerTypeHierarchyAdapter(T::class.java, adapter)
+
+typealias GsonObject = com.google.gson.JsonObject
+
+operator fun GsonObject.set(key : String, element : JsonElement) = add(key, element)
+operator fun GsonObject.set(key : String, value : String) = addProperty(key, value)
+operator fun GsonObject.set(key : String, value : Number) = addProperty(key, value)
+operator fun GsonObject.set(key : String, value : Boolean) = addProperty(key, value)
+operator fun GsonObject.set(key : String, value : Char) = addProperty(key, value)
