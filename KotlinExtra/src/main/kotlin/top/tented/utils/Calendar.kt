@@ -12,10 +12,10 @@ private class CalendarDelegate(val flag : Int) {
 }
 
 var Calendar.year by CalendarDelegate(Calendar.YEAR)
-val Calendar.month by CalendarDelegate(Calendar.MONTH)
-val Calendar.day by CalendarDelegate(Calendar.DAY_OF_MONTH)
-val Calendar.hour by CalendarDelegate(Calendar.HOUR_OF_DAY)
-val Calendar.minute by CalendarDelegate(Calendar.MINUTE)
-val Calendar.second by CalendarDelegate(Calendar.SECOND)
+var Calendar.month by CalendarDelegate(Calendar.MONTH)
+var Calendar.day by CalendarDelegate(Calendar.DAY_OF_MONTH)
+var Calendar.hour by CalendarDelegate(Calendar.HOUR_OF_DAY)
+var Calendar.minute by CalendarDelegate(Calendar.MINUTE)
+var Calendar.second by CalendarDelegate(Calendar.SECOND)
 
 val calendar get() = Calendar.getInstance()
