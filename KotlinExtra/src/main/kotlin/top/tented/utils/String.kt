@@ -22,10 +22,7 @@ operator fun CharSequence.times(times : Int) =
 
 operator fun CharSequence.div(value : Int) : List<String> = splitWithLength(((this.length / value.toDouble()) + 0.5).toInt())
 
-fun String.toFile(root : String = "") = java.io.File(root + this)
-fun String.toUrl() = java.net.URL(this)
-fun String.toBuilder() = StringBuilder(this)
-fun String.toClass() = Class.forName(this)
+fun CharSequence.firstUpperCase() = this[0].toUpperCase().toString() + subSequence(1..length)
 
 fun CharSequence.splitWithLength(length : Int) : List<String> =
         if (length > 0) {

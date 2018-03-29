@@ -4,11 +4,8 @@ import java.util.*
 import kotlin.reflect.KProperty
 
 private class CalendarDelegate(val flag : Int) {
-    operator fun getValue(_this : Any?, property : KProperty<*>) =
-            _this.uncheckCast<Calendar>().get(flag)
-
-    operator fun setValue(_this : Any?, property : KProperty<*>, value : Int) =
-            _this.uncheckCast<Calendar>().set(flag, value)
+	operator fun getValue(self : Calendar, property : KProperty<*>) : Int = self.get(flag)
+	operator fun setValue(self : Calendar, property : KProperty<*>, value : Int) = self.set(flag, value)
 }
 
 var Calendar.year by CalendarDelegate(Calendar.YEAR)

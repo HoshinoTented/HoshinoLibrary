@@ -9,6 +9,8 @@ import org.json.JSONObject
 import java.io.Reader
 import java.io.StringReader
 
+typealias GsonObject = com.google.gson.JsonObject
+
 class JsonObject : JSONObject() {
 	inline fun obj(obj : JsonObject.() -> Unit) = json(obj)
 	fun array(vararg values : Any?) = JSONArray(values.toList())
@@ -29,7 +31,6 @@ inline fun <reified T> Gson.fromJsonByType(reader : Reader) : T = fromJson(
 inline fun <reified T> GsonBuilder.registerTypeAdapter(adapter : Any) = registerTypeAdapter(T::class.java, adapter)
 inline fun <reified T> GsonBuilder.registerTypeHierarchyAdapter(adapter : Any) = registerTypeHierarchyAdapter(T::class.java, adapter)
 
-typealias GsonObject = com.google.gson.JsonObject
 
 operator fun GsonObject.set(key : String, element : JsonElement) = add(key, element)
 operator fun GsonObject.set(key : String, value : String) = addProperty(key, value)
