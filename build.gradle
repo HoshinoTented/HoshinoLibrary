@@ -37,4 +37,8 @@ allprojects {
         from sourceSets.main.kotlin.srcDirs
         classifier = 'sources'
     }
+
+    artifacts {
+        archives sourcesJar
+    }
 }
