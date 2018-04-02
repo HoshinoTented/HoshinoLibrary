@@ -11,14 +11,13 @@ buildscript {
 }
 
 allprojects {
-    group 'com.github.HoshinoTented'
-    version '1.0.8'
+    group = 'com.github.HoshinoTented'
+    version = '1.0.8'
 
     apply plugin: 'kotlin'
 
     repositories {
         mavenCentral()
-        maven { url 'https://jitpack.io' }
     }
 
     dependencies {
@@ -32,5 +31,10 @@ allprojects {
 
     compileTestKotlin {
         kotlinOptions.jvmTarget = '1.8'
+    }
+
+    task sourcesJar(type : Jar) {
+        from sourceSets.main.kotlin.srcDirs
+        classifier = 'sources'
     }
 }
