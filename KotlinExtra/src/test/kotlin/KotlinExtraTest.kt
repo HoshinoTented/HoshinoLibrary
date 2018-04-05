@@ -99,4 +99,10 @@ class KotlinExtraTest {
 	fun calendarDelegate() {
 		println(Calendar.getInstance().year)
 	}
+
+	@Test
+	fun stringInsert() {
+		val str = "1234567890"
+		println(str.insert(3, "123"))
+	}
 }
