@@ -15,12 +15,12 @@ import java.util.*
  * @date 2018/1/29 7:10
  */
 
-class Config(val file : File) : Properties() {
+class Config(val file : File) {
 	companion object {
 		operator fun invoke(fileName : String) = Config(File(fileName))
 	}
 
-	@Deprecated("Config now extends Properties", ReplaceWith("this")) val properties get() = this       //兼容。。。
+	val properties get() = Properties()       //兼容。。。
 	val input get() = FileInputStream(file)            //使用同一个input也不行。。。
 	val output get() = FileOutputStream(file)      //使用同一个outputStream会导致数据重复
 
@@ -35,8 +35,10 @@ class Config(val file : File) : Properties() {
 	 */
 	val keySet
 		get() = file.takeIf { it.exists() }?.let {
-			load(input)
-			keys
+			properties.run {
+				load(input)
+				keys
+			}
 		} ?: emptySet<Any>()
 
 	/**
@@ -45,10 +47,12 @@ class Config(val file : File) : Properties() {
 	 */
 	fun remove(key : String) =
 			file.takeIf { it.exists() }?.let {
-				load(input)
-				takeIf { it.containsKey(key) }?.run {
-					super.remove(key)
-					store(output, null)
+				properties.run {
+					load(input)
+					takeIf { it.containsKey(key) }?.run {
+						this.remove(key)
+						store(output, null)
+					}
 				}
 			} ?: false
 
@@ -64,8 +68,10 @@ class Config(val file : File) : Properties() {
 	 */
 	operator fun get(key : String) =
 			file.takeIf { it.exists() }?.let {
-				load(input)
-				this.getProperty(key)
+				properties.run {
+					load(input)
+					this.getProperty(key)
+				}
 			}
 
 	/**
@@ -80,8 +86,10 @@ class Config(val file : File) : Properties() {
 					createNewFile()
 				}
 
-				load(input)
-				setProperty(key, value.toString())
-				store(output, null)
+				properties.run {
+					load(input)
+					setProperty(key, value.toString())
+					store(output, null)
+				}
 			}
 }
