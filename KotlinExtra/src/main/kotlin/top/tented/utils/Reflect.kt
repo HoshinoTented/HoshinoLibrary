@@ -1,12 +1,12 @@
+@file:Suppress("unused")
+
 package top.tented.utils
 
-import java.lang.reflect.Field
-import java.lang.reflect.Method
 import java.util.jar.JarFile
 import kotlin.reflect.KProperty
 
 @Suppress("UNCHECKED_CAST")
-class FieldDelegate<T>(val obj : Any?) {
+class FieldDelegate<T>(private val obj : Any?) {
 	operator fun getValue(_this : Any?, property : KProperty<*>) : T? = obj?.javaClass?.getDeclaredField(property.name)?.run {
 		isAccessible = true
 		get(obj)
@@ -19,7 +19,7 @@ class FieldDelegate<T>(val obj : Any?) {
 }
 
 @Throws(NoSuchMethodException::class)
-inline fun <reified T : Any> T.function( name : String, vararg args : Any ) : Any? {
+inline fun <reified T : Any> T.function(name : String, vararg args : Any) : Any? {
 	T::class.java.methods.forEach method@{
 		if(it.name == name) {
 			val parameters = it.parameterTypes
@@ -34,16 +34,16 @@ inline fun <reified T : Any> T.function( name : String, vararg args : Any ) : An
 	}
 
 	throw NoSuchMethodException(
-		"Not found method: $name${args.joinToString(prefix = "(", postfix = ")") { it::class.java.name }}"
+			"Not found method: $name${args.joinToString(prefix = "(", postfix = ")") { it::class.java.name }}"
 	)
 }
 
 @Throws(NoSuchFieldException::class)
-inline fun <reified T : Any?> T.field( name : String ) : Any? =
-	T::class.java.getDeclaredField(name).run {
-		this.isAccessible = true
-		get(this@field)
-	}
+inline fun <reified T : Any?> T.field(name : String) : Any? =
+		T::class.java.getDeclaredField(name).run {
+			this.isAccessible = true
+			get(this@field)
+		}
 
 //Get classes from jar file
 fun Package.classes(jar : JarFile) =

@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package top.tented.utils
 
 import org.intellij.lang.annotations.Language
@@ -52,5 +54,6 @@ fun CharSequence.find(@Language("RegExp") regex : String) = match(regex, Matcher
 fun CharSequence.lookingAt(@Language("RegExp") regex : String) = match(regex, Matcher::lookingAt)
 
 fun CharSequence.randomElement() = this[Random().nextInt(this.length)]
+fun CharSequence.cut(from : Int, length : Int) = substring(from, from + length)
 
 fun String.replace(replaces : Map<String, String>) = replaces.forEach { old, new -> replace(old, new) }

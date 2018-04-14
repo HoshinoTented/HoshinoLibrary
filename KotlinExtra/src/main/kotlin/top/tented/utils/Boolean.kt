@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package top.tented.utils
 
 fun Boolean?.orFalse() = or(false)

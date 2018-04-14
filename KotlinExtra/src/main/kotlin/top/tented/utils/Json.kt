@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package top.tented.utils
 
 import com.google.gson.Gson
@@ -14,7 +16,9 @@ typealias GsonObject = com.google.gson.JsonObject
 class JsonObject : JSONObject() {
 	inline fun obj(obj : JsonObject.() -> Unit) = json(obj)
 	fun array(vararg values : Any?) = JSONArray(values.toList())
-	infix fun String.to(other : Any?) = put(this, other)
+	infix fun String.to(other : Any?) {
+		put(this, other)
+	}
 }
 
 inline fun json(obj : JsonObject.() -> Unit) = JsonObject().apply(obj)
@@ -24,12 +28,12 @@ inline fun <reified T> Gson.fromJson(reader : Reader) : T = fromJson(reader, T::
 
 inline fun <reified T> Gson.fromJsonByType(json : String) : T = fromJsonByType(StringReader(json))
 inline fun <reified T> Gson.fromJsonByType(reader : Reader) : T = fromJson(
-	reader,
-	object : TypeToken<T>() {}.type
+		reader,
+		object : TypeToken<T>() {}.type
 )
 
-inline fun <reified T> GsonBuilder.registerTypeAdapter(adapter : Any) = registerTypeAdapter(T::class.java, adapter)
-inline fun <reified T> GsonBuilder.registerTypeHierarchyAdapter(adapter : Any) = registerTypeHierarchyAdapter(T::class.java, adapter)
+inline fun <reified T> GsonBuilder.registerTypeAdapter(adapter : Any) = registerTypeAdapter(T::class.java, adapter) ?: this
+inline fun <reified T> GsonBuilder.registerTypeHierarchyAdapter(adapter : Any) = registerTypeHierarchyAdapter(T::class.java, adapter) ?: this
 
 
 operator fun GsonObject.set(key : String, element : JsonElement) = add(key, element)

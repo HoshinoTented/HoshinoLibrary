@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package top.tented.utils
 
 import java.util.*
@@ -15,4 +17,4 @@ var Calendar.hour by CalendarDelegate(Calendar.HOUR_OF_DAY)
 var Calendar.minute by CalendarDelegate(Calendar.MINUTE)
 var Calendar.second by CalendarDelegate(Calendar.SECOND)
 
-val calendar get() = Calendar.getInstance()
+val calendar get() = Calendar.getInstance() !!
