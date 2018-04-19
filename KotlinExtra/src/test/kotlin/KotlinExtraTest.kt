@@ -105,4 +105,10 @@ class KotlinExtraTest {
 		val str = "1234567890"
 		println(str.insert(3, "123"))
 	}
+
+	@Test
+	fun div() {
+		val str = "1234567890"
+		println(str / 3)
+	}
 }
