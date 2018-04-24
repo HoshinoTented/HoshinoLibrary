@@ -10,13 +10,26 @@ version = "1.0.8-04"
 
 plugins {
 	kotlin("jvm") version "1.2.40"
+	maven
 }
 
 val SourceSet.kotlin get() = (this as HasConvention).convention.getPlugin(KotlinSourceSet::class.java).kotlin
-
 val sourceSets = java.sourceSets
 
 allprojects {
+	apply {
+		plugin("kotlin")
+		plugin("maven")
+	}
+
+	repositories {
+		mavenCentral()
+	}
+
+	dependencies {
+		implementation(kotlin("stdlib-jdk8", kotlinVersion))
+	}
+
 	tasks.withType<KotlinCompile> {
 		kotlinOptions.jvmTarget = "1.8"
 	}
@@ -24,9 +37,9 @@ allprojects {
 	val sourcesJar = task<Jar>("sourcesJar") {
 		from(sourceSets.getByName("main").kotlin.srcDirs)
 		classifier = "sources"
-    }
+	}
 
-    artifacts {
-
+	artifacts {
+		add("default", sourcesJar)
 	}
 }
