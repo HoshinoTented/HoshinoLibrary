@@ -2,6 +2,8 @@ import org.gradle.api.internal.HasConvention
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 
+/*I LOVE KOTLIN*/
+
 var kotlinVersion : String by extra
 kotlinVersion = "1.2.40"
 
