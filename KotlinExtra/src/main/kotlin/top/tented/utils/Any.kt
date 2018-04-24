@@ -14,3 +14,7 @@ inline fun <T> T?.nullCheck(lambda : () -> Unit) = this?.let { lambda() }
 
 fun <T> T.another(a : T, b : T) = if (a == this) b else a
 fun <T> T.others(vararg obj : T) = obj.toMutableList().apply { removeAll { it == this@others } }.toList()
+
+inline fun <reified R> Any?.cast() = this as? R
+inline fun <reified R> Any?.uncheckCast() = this as R
+inline fun <reified R> Any?.instanceOf() = this is R
