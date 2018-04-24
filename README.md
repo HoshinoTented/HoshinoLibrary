@@ -7,3 +7,7 @@
 然后还没什么用  
 :(  
 桑心
+
+# Branch Of Kts
+用来测试 JitPack 上编译Gradle Kts构建的项目, 不过已经测试好啦  
+所以就merge到master里了

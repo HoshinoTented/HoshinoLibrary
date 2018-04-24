@@ -42,6 +42,7 @@ allprojects {
 	}
 
 	artifacts {
-		add("archives", sourcesJar)
+		operator fun String.invoke(obj : Any) = add(this, obj)
+		"archives"(sourcesJar)
 	}
 }

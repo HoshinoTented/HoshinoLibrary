@@ -21,7 +21,6 @@ sourceSets {
 val genShortDiv = task<JavaExec>("genShortDiv") {
 	classpath = sourceSets.getByName("main").runtimeClasspath
 	main = "$generatorsPackage.ShortDivGenerator"
-	println("Generated ShortDivGenerator")
 }
 
 task("genAll") {
