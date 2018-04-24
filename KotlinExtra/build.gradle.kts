@@ -10,9 +10,11 @@ val generatorsPackage = "top.tented.utils.generators"
 val sourceSets = java.sourceSets
 val SourceSet.kotlin get() = (this as HasConvention).convention.getPlugin(KotlinSourceSet::class.java).kotlin
 
+val mainDirs = listOf("kotlin", "gen")
+
 sourceSets {
 	"main" {
-		kotlin.srcDirs += file("src/main/gen")
+		kotlin.srcDirs(* mainDirs.map { "src/main/$it" }.toTypedArray())
 	}
 }
 
