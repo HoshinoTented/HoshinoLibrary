@@ -37,8 +37,7 @@ allprojects {
 	}
 
 	val sourcesJar = task<Jar>("sourcesJar") {
-		println(sourceSets.getByName("main").kotlin.srcDirs)
-		from(sourceSets.getByName("main").kotlin.srcDirs)
+		from(sourceSets.getByName("main").allSource)
 		classifier = "sources"
 	}
 
