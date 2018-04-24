@@ -42,6 +42,6 @@ allprojects {
 	}
 
 	artifacts {
-		add("default", sourcesJar)
+		add("archives", sourcesJar)
 	}
 }
