@@ -111,4 +111,9 @@ class KotlinExtraTest {
 		val str = "1234567890"
 		println(str / 3)
 	}
+
+	@Test
+	fun shortDiv() {
+		10.shortDiv(2).run(::println)
+	}
 }
