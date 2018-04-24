@@ -1,3 +1,4 @@
+package top.tented.utils
 fun Byte.shortDiv(other : Byte) : Pair<Int, Int> = div(other) to rem(other)
 fun Byte.shortDiv(other : Short) : Pair<Int, Int> = div(other) to rem(other)
 fun Byte.shortDiv(other : Int) : Pair<Int, Int> = div(other) to rem(other)

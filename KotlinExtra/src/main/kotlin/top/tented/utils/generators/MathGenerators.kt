@@ -22,13 +22,15 @@ internal object ShortDivGenerator {
 	}
 
 	private fun gen() {
-		val outputFile = output.run(::File).apply {}
+		val outputFile = output.run(::File)
 		if (outputFile.exists().not()) {
 			outputFile.parentFile.mkdirs()
 			outputFile.createNewFile()
 		}
 
 		buildString {
+			appendln("package top.tented.utils")
+
 			Type.values().forEach { type ->
 				Type.values().forEach { other ->
 					val returnType = (type < other).yesOrNo(other, type).takeUnless { it == Type.Byte || it == Type.Short } ?: Type.Int
