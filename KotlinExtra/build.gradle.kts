@@ -7,14 +7,12 @@ dependencies {
 }
 
 val generatorsPackage = "top.tented.utils.generators"
-val sourceSets = java.sourceSets
+val sourceSets : SourceSetContainer = java.sourceSets
 val SourceSet.kotlin get() = (this as HasConvention).convention.getPlugin(KotlinSourceSet::class.java).kotlin
-
-val mainDirs = listOf("kotlin", "gen")
 
 sourceSets {
 	"main" {
-		kotlin.srcDirs(* mainDirs.map { "src/main/$it" }.toTypedArray())
+		kotlin.srcDir("src/main/gen")
 	}
 }
 
@@ -23,6 +21,12 @@ val genShortDiv = task<JavaExec>("genShortDiv") {
 	main = "$generatorsPackage.ShortDivGenerator"
 }
 
+val genList : List<Task> = listOf(
+		genShortDiv
+)
+
 task("genAll") {
-	dependsOn(genShortDiv)
+	genList.forEach {
+		dependsOn(it)
+	}
 }

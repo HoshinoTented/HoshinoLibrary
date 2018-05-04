@@ -30,6 +30,7 @@ allprojects {
 
 	dependencies {
 		implementation(kotlin("stdlib-jdk8", kotlinVersion))
+		testImplementation("junit", "junit", "4.12")
 	}
 
 	tasks.withType<KotlinCompile> {

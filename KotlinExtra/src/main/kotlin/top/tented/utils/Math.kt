@@ -12,3 +12,6 @@ infix fun Long.randomTo(end : Long) = this + (Math.random() * (end - this)).toLo
 
 fun IntRange.random() = first.toLong() randomTo last.toLong()
 fun LongRange.random() = first randomTo last
+
+fun Number.toBigInt() = toString().run(::BigInt)
+fun Number.toBigDec() = toString().run(::BigDec)
