@@ -1,5 +1,7 @@
 import org.junit.Test
 import top.tented.file.Config
+import top.tented.file.readObject
+import top.tented.file.writeObject
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -54,5 +56,16 @@ class FileTest {
 			properties["1"] = "2"
 			properties.store(output, null)
 		}
+	}
+
+	@Test
+	fun obj() {
+		val file = File("./src/test/resources/obj.jobj")
+		if (! file.exists()) {
+			file.createNewFile()
+		}
+
+		FileOutputStream(file).writeObject(StringBuilder("123"))
+		println(file.readText())
 	}
 }
