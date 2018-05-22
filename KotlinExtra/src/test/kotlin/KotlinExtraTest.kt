@@ -27,15 +27,6 @@ class KotlinExtraTest {
 			}.toTypedArray()
 
 	@Test
-	fun reflectDelegate() {
-		val value : CharArray? by FieldDelegate("132")
-
-		value?.forEach {
-			println(it)
-		}
-	}
-
-	@Test
 	fun jsonTest() {
 		json {
 			"my" to obj {
@@ -116,5 +107,10 @@ class KotlinExtraTest {
 	@Test
 	fun shortDiv() {
 		10.shortDiv(2).run(::println)
+	}
+
+	@Test
+	fun md5() {
+		println(md5("Hello world!"))
 	}
 }

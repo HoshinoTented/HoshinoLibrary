@@ -2,6 +2,10 @@
 
 package top.tented.utils
 
+/**
+ * 这是一个完全没有用处的东西, 请不要理会
+ */
+
 interface Evaluable {
 	operator fun invoke() : Double
 }

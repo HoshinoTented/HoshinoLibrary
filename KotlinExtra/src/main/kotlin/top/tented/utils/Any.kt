@@ -2,6 +2,7 @@
 
 package top.tented.utils
 
+//这个 `infix` 就没什么意义了呀, 本来就是为了避免 `?:` 的时候要搞个括号框住的
 fun <T> T?.or(other : T) = this ?: other
 
 @Deprecated("Please not use this function", ReplaceWith(" ?: TODO()"))

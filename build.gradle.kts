@@ -5,13 +5,13 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 /*I LOVE KOTLIN*/
 
 var kotlinVersion : String by extra
-kotlinVersion = "1.2.40"
+kotlinVersion = "1.2.41"
 
 group = "com.github.HoshinoTented"
 version = "1.0.8-04"
 
 plugins {
-	kotlin("jvm") version "1.2.40"
+	kotlin("jvm") version "1.2.41"
 	maven
 }
 
