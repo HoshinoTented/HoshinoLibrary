@@ -16,7 +16,7 @@ plugins {
 }
 
 val SourceSet.kotlin get() = (this as HasConvention).convention.getPlugin(KotlinSourceSet::class.java).kotlin
-val Project.sourceSets get() = java.sourceSets
+val Project.sourceSets : SourceSetContainer get() = java.sourceSets
 
 allprojects {
 	apply {
@@ -38,7 +38,7 @@ allprojects {
 	}
 
 	val sourcesJar = task<Jar>("sourcesJar") {
-		from(sourceSets.getByName("main").allSource)
+		from(sourceSets.getByName("main").kotlin)
 		classifier = "sources"
 	}
 
