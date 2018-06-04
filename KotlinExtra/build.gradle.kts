@@ -2,8 +2,8 @@ import org.gradle.api.internal.HasConvention
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 
 dependencies {
-	compileOnly("com.google.code.gson:gson:2.8.2")
-	compileOnly("org.json:json:20180130")
+	implementation("com.google.code.gson:gson:2.8.2")
+	implementation("org.json:json:20180130")
 }
 
 val generatorsPackage = "top.tented.utils.generators"
