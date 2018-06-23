@@ -1,5 +1,5 @@
 import org.junit.Test
-import top.tented.internet.Request
+import org.hoshino9.internet.Request
 
 class InternetRequestTest {
     @Test

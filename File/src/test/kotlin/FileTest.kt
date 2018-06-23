@@ -1,7 +1,7 @@
 import org.junit.Test
-import top.tented.file.Config
-import top.tented.file.readObject
-import top.tented.file.writeObject
+import org.hoshino9.io.Config
+import org.hoshino9.io.readObject
+import org.hoshino9.io.writeObject
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream

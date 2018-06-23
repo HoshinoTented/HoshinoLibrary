@@ -1,5 +1,5 @@
 import org.junit.Test
-import top.tented.compiler.Compiler
+import org.hoshino9.compiler.Compiler
 
 class CompilerTest {
 	@Test

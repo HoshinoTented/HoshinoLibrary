@@ -1,9 +1,5 @@
-import com.google.gson.Gson
-import org.intellij.lang.annotations.Language
+import org.hoshino9.utils.*
 import org.junit.Test
-import top.tented.utils.*
-import java.io.File
-import java.math.BigInteger
 import java.util.Calendar
 import java.util.jar.JarFile
 
@@ -27,57 +23,8 @@ class KotlinExtraTest {
 			}.toTypedArray()
 
 	@Test
-	fun jsonTest() {
-		json {
-			"my" to obj {
-				"name" to obj {
-					"first" to "Hoshino"
-					"last" to "Tented"
-				}
-
-				"age" to 14
-
-				"things" to array(1, 2, 3)
-			}
-		}.getJSONObject("my").get("things")::class.java.apply(::println)
-
-		@Language("JSON") val json =
-				"""{"my":{"name":{"last":"Tented", "first":"Hoshino"}, "things":[1, 2, 3], "age":14}}"""
-	}
-
-	@Test
-	fun gsonTest() {
-		Gson().let { gson ->
-			val list = listOf("1", "2", "3")
-			val json = gson.toJson(list)
-
-			println(gson.fromJsonByType<List<String>>(json))
-		}
-	}
-
-	@Test
 	fun shell() {
-		println(top.tented.utils.shell("echo Hello world!"))
-	}
-
-	class RangeClass(val a : Int, val b : Long, val c : LongRange)
-
-	@Test
-	fun closedRangeGson() {
-		val gson = Gson()
-		val closedRange = RangeClass(1, 2, 3L..4L)
-		val json = gson.toJson(closedRange).apply(::println)
-		gson.fromJson<RangeClass>(json).run {
-			println("a: $a")
-			println("b: $b")
-			println("c: $c")
-		}
-	}
-
-	@Test
-	fun sourceTest() {
-		val gson = Gson()
-		gson.toJson(1 to 2)
+		println(org.hoshino9.utils.shell("echo Hello world!"))
 	}
 
 	/**
@@ -107,6 +54,6 @@ class KotlinExtraTest {
 
 	@Test
 	fun md5() {
-		println(md5("Hello world!"))
+		println(org.hoshino9.utils.md5("Hello world!"))
 	}
 }
