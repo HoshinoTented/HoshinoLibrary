@@ -27,7 +27,7 @@ jobs:
       - run: gradle assemble --info --warning-mode=all
 
       - store_artifacts:
-        path: 'File/build/libs:Functional/build/libs:GsonExtra/build/libs:InternetRequest/build/libs:KotlinExtra/build/libs:OnlineCompiler/build/libs'
+            path: 'File/build/libs:Functional/build/libs:GsonExtra/build/libs:InternetRequest/build/libs:KotlinExtra/build/libs:OnlineCompiler/build/libs'
 
       # run tests!
       - run: gradle test
