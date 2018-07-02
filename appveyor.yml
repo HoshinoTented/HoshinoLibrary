@@ -3,7 +3,8 @@ environment:
 #
 
 build_script:
-  - gradle assemble --info --warning-mode=all
+  - gradlew assemble --info --warning-mode=all
+  - gradlew test --info --warning-mode=all
 #
 
 artifacts:
