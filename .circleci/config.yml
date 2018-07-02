@@ -27,7 +27,9 @@ jobs:
       - run: gradle assemble --info --warning-mode=all
 
       - store_artifacts:
-            path: 'File/build/libs:Functional/build/libs'
+            path: 'File/build/libs'
+      - store_artifacts:
+            path: 'Functional/build/libs'
       - store_artifacts:
             path: 'GsonExtra/build/libs'
       - store_artifacts:
