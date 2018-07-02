@@ -1,4 +1,4 @@
-package org.hoshino9.utils.generators
+package org.hoshino9.generators
 
 import org.intellij.lang.annotations.Language
 import org.hoshino9.utils.yesOrNo

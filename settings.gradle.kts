@@ -2,6 +2,7 @@ include(
 	"OnlineCompiler",
 	"InternetRequest",
 	"KotlinExtra",
+	"GsonExtra",
 	"File",
-	"GsonExtra"
+	"Functional"
 )

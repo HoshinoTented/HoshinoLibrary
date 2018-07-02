@@ -1,7 +1,6 @@
 import org.gradle.api.internal.HasConvention
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 
-val generatorsPackage = "org.hoshino9.generators"
 val sourceSets : SourceSetContainer = java.sourceSets
 val SourceSet.kotlin get() = (this as HasConvention).convention.getPlugin(KotlinSourceSet::class.java).kotlin
 
@@ -11,17 +10,16 @@ sourceSets {
 	}
 }
 
-val genShortDiv = task<JavaExec>("genShortDiv") {
-	classpath = sourceSets.getByName("main").runtimeClasspath
-	main = "$generatorsPackage.ShortDivGenerator"
-}
-
-val genList : List<Task> = listOf(
-		genShortDiv
+val generatorsPackage = "org.hoshino9.generators"
+val genList : List<String> = listOf(
+	"CurringGenerator"
 )
 
 task("genAll") {
 	genList.forEach {
-		dependsOn(it)
+		createTask(it, JavaExec::class) {
+			classpath = sourceSets.getByName("main").runtimeClasspath
+			main = "$generatorsPackage.$name"
+		}.let { dependsOn(it) }
 	}
 }
