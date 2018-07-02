@@ -59,6 +59,23 @@ package org.hoshino9.functional
 		}
 	}
 
+	private fun bodyUncurring(max : Int) : String {
+		return buildString {
+			if (max == 0) {
+				append(parameterName)
+			} else {
+				append(lambdaPrefix)
+				append(space)
+				if (1 <= max) (1..max).joinTo(this, postfix = " $lambda ", transform = ::parameter)
+				append(parameterName)
+				(1..max).joinTo(this, separator = "") { "$parameterPrefix${parameter(it)}$parameterPostfix" }
+
+				append(space)
+				append(lambdaPostfix)
+			}
+		}
+	}
+
 	private fun uncurringParameters(it : Int) : String {
 		return buildString {
 			append(parameterPrefix)
@@ -79,23 +96,6 @@ package org.hoshino9.functional
 				0.until(it).joinTo(this, separator = " $lambda ", postfix = " $lambda $returnType") {
 					"(${type(it)})"
 				}
-			}
-		}
-	}
-
-	private fun bodyUncurring(max : Int) : String {
-		return buildString {
-			if (max == 0) {
-				append(parameterName)
-			} else {
-				append(lambdaPrefix)
-				append(space)
-				if (1 <= max) (1..max).joinTo(this, postfix = " $lambda ", transform = ::parameter)
-				append(parameterName)
-				(1..max).joinTo(this, separator = "") { "$parameterPrefix${parameter(it)}$parameterPostfix" }
-
-				append(space)
-				append(lambdaPostfix)
 			}
 		}
 	}
