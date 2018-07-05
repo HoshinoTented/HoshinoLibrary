@@ -3,7 +3,7 @@
 package org.hoshino9.utils
 
 //这个 `infix` 就没什么意义了呀, 本来就是为了避免 `?:` 的时候要搞个括号框住的
-fun <T> T?.or(other : T) = this ?: other
+fun <T> T?.orElse(other : T) = this ?: other
 
 @Deprecated("Please not use this function", ReplaceWith("!!"))
 fun <T> T?.orNPE() = this ?: throw NullPointerException("Some things went wrong...")

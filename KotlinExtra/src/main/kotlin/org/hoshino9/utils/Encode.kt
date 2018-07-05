@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package org.hoshino9.utils
 
 import java.security.MessageDigest

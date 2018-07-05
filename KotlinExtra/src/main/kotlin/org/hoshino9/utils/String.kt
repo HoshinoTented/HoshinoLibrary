@@ -7,6 +7,7 @@ import java.util.Random
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
+@JvmName("sub")
 operator fun String.get(from : Int, end : Int) = substring(
 		(if (from < 0) length else 0)
 				+ from,
@@ -20,7 +21,7 @@ operator fun CharSequence.div(value : Int) = chunked(value)
 fun CharSequence.firstUpperCase() = this[0].toUpperCase().toString() + subSequence(1..length)
 fun CharSequence.insert(index : Int, str : CharSequence) = substring(0, index) + str + substring(index)
 
-private fun CharSequence.match(@Language("RegExp") regex : String, takeIf : Matcher.() -> Boolean) = Pattern.compile(regex).matcher(this).takeIf(takeIf)
+fun CharSequence.match(@Language("RegExp") regex : String, takeIf : Matcher.() -> Boolean) = Pattern.compile(regex).matcher(this).takeIf(takeIf)
 
 fun CharSequence.matches(@Language("RegExp") regex : String) = match(regex, Matcher::matches)
 fun CharSequence.find(@Language("RegExp") regex : String) = match(regex, Matcher::find)

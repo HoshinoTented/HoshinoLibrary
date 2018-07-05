@@ -13,7 +13,7 @@ inline fun <T> List<T>.containsIf(condition : (T) -> Boolean) = indexOfFirst(con
 
 inline fun <K, V> Map<K, V>.containsIf(condition : (Map.Entry<K, V>) -> Boolean) = any(condition)
 
-fun <T> MutableList<T>.addIf(value : T, lambda : (T) -> Boolean) {
+inline fun <T> MutableList<T>.addIf(value : T, lambda : (T) -> Boolean) {
 	if(lambda(value)) add(value)
 }
 

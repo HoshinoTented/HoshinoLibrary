@@ -12,7 +12,7 @@ fun printfErr(message : String, vararg args : Any?) : PrintStream = System.err.p
 fun printErr(message : Any?) = System.err.print(message)
 fun printlnErr(message : Any?) = System.err.println(message)
 
-fun forceRun(lambda : () -> Unit) {
+inline fun forceRun(lambda : () -> Unit) {
 	try {
 		lambda()
 	} catch (e : Exception) {
@@ -20,7 +20,7 @@ fun forceRun(lambda : () -> Unit) {
 	}
 }
 
-fun catchRun(lambda : () -> Unit) {
+inline fun catchRun(lambda : () -> Unit) {
 	try {
 		lambda()
 	} catch (e : Exception) {
