@@ -8,7 +8,7 @@ var kotlinVersion : String by extra
 kotlinVersion = "1.2.51"
 
 group = "com.github.HoshinoTented"
-version = "1.0.9"
+version = "1.0.91"
 
 plugins {
 	kotlin("jvm") version "1.2.51"
