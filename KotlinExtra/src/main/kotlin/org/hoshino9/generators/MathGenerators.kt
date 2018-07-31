@@ -13,7 +13,7 @@ internal object ShortDivGenerator {
 	private const val output = "$genPath/org/hoshino9/utils/_Math\$ShortDiv.kt"
 	@Language("Kotlin") private const val header = """@file:Suppress("unused")
 
-package top.tented.utils
+package org.hoshino9.utils
 """
 
 	enum class Type {

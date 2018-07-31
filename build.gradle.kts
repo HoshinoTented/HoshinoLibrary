@@ -11,7 +11,7 @@ group = "com.github.HoshinoTented"
 version = "1.0.91"
 
 plugins {
-	kotlin("jvm") version "1.2.51"
+	kotlin("jvm") version "1.2.41"
 	maven
 }
 
