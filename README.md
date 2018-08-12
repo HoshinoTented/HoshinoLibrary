@@ -1,9 +1,9 @@
-# MainLibrary
+# HoshinoLibrary
 CI        |Status
 :--------:|:-------:
-Jitpack   |[![](https://jitpack.io/v/HoshinoTented/MainLibrary.svg)](https://jitpack.io/#HoshinoTented/MainLibrary)
-AppVeyor  |[![Build status](https://ci.appveyor.com/api/projects/status/7jr67qny43crw6fl?svg=true)](https://ci.appveyor.com/project/HoshinoTented/mainlibrary)
-CircleCI  |[![CircleCI](https://circleci.com/gh/HoshinoTented/MainLibrary.svg?style=svg)](https://circleci.com/gh/HoshinoTented/MainLibrary)
+Jitpack   |[![](https://jitpack.io/v/HoshinoTented/HoshinoLibrary.svg)](https://jitpack.io/#HoshinoTented/HoshinoLibrary)
+AppVeyor  |[![Build status](https://ci.appveyor.com/api/projects/status/7jr67qny43crw6fl?svg=true)](https://ci.appveyor.com/project/HoshinoTented/HoshinoLibrary)
+CircleCI  |[![CircleCI](https://circleci.com/gh/HoshinoTented/HoshinoLibrary.svg?style=svg)](https://circleci.com/gh/HoshinoTented/HoshinoLibrary)
 
 一个给自己玩的中心库  
 如果你觉得。。星野某些库写的还不错就随便用吧（  

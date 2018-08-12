@@ -29,7 +29,7 @@ allprojects {
 	}
 
 	dependencies {
-		implementation(kotlin("stdlib-jdk8", kotlinVersion))
+		implementation(kotlin("stdlib", kotlinVersion))
 		testImplementation(kotlin("test-junit", kotlinVersion))
 	}
 
