@@ -1,25 +1,17 @@
-import org.gradle.api.internal.HasConvention
+import org.hoshino9.gradle.generator.*
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val sourceSets : SourceSetContainer = java.sourceSets
-val SourceSet.kotlin get() = (this as HasConvention).convention.getPlugin(KotlinSourceSet::class.java).kotlin
-
-sourceSets {
+java.sourceSets {
 	"main" {
-		kotlin.srcDir("src/main/gen")
+		withConvention(KotlinSourceSet::class) {
+			kotlin.srcDir("src/main/gen")
+		}
 	}
 }
 
-val generatorsPackage = "org.hoshino9.generators"
-val genList : List<String> = listOf(
-	"CurringGenerator"
-)
+val compileKotlin = tasks["compileKotlin"] as KotlinCompile
+val genCurring = task<CurringGenerator>("genCurring")
+val genUncurring = task<UncurringGenerator>("genUncurring")
 
-task("genAll") {
-	genList.forEach {
-		createTask(it, JavaExec::class) {
-			classpath = sourceSets.getByName("main").runtimeClasspath
-			main = "$generatorsPackage.$name"
-		}.let { dependsOn(it) }
-	}
-}
+compileKotlin.dependsOn(genCurring, genUncurring)

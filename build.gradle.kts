@@ -37,6 +37,10 @@ allprojects {
 		kotlinOptions.jvmTarget = "1.8"
 	}
 
+	val cleanGen = task<Delete>("cleanGen") {
+		delete("src/main/gen")
+	}
+
 	val sourcesJar = task<Jar>("sourcesJar") {
 		from(sourceSets.getByName("main").kotlin)
 		classifier = "sources"
@@ -46,4 +50,6 @@ allprojects {
 		operator fun String.invoke(obj : Any) = add(this, obj)
 		"archives"(sourcesJar)
 	}
+
+	tasks["clean"].dependsOn(cleanGen)
 }
