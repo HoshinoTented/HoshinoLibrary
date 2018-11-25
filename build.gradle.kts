@@ -5,18 +5,18 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 /* I LOVE KOTLIN */
 
 var kotlinVersion : String by extra
-kotlinVersion = "1.2.60"
+kotlinVersion = "1.3.10"
 
 group = "com.github.HoshinoTented"
 version = "1.0.91"
 
 plugins {
-	kotlin("jvm") version "1.2.60"
+	kotlin("jvm") version "1.3.10"
 	maven
 }
 
 val SourceSet.kotlin get() = (this as HasConvention).convention.getPlugin(KotlinSourceSet::class.java).kotlin
-val Project.sourceSets : SourceSetContainer get() = java.sourceSets
+//val Project.sourceSets : SourceSetContainer get() = java.sourceSets
 
 allprojects {
 	apply {
