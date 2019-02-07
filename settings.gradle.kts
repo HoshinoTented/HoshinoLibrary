@@ -1,8 +1,9 @@
 include(
-	"OnlineCompiler",
-	"InternetRequest",
-	"KotlinExtra",
-	"GsonExtra",
-	"File",
-	"Functional"
+		"OnlineCompiler",
+		"InternetRequest",
+		"KotlinExtra",
+		"GsonExtra",
+		"File",
+		"Functional",
+		"Koskell"
 )
