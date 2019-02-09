@@ -5,7 +5,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 sourceSets {
 	getByName("main") {
 		withConvention(KotlinSourceSet::class) {
-			kotlin.srcDir("src/main/gen")
+			kotlin.srcDirs("src/main/gen")
 		}
 	}
 }
@@ -13,5 +13,7 @@ sourceSets {
 val compileKotlin = tasks["compileKotlin"] as KotlinCompile
 val genCurring = task<CurringGenerator>("genCurring")
 val genUncurring = task<UncurringGenerator>("genUncurring")
+val genCurriedType = task<CurriedTypeGenerator>("genCurriedType")
+val genUncurriedType = task<UncurriedTypeGenerator>("genUncurriedType")
 
-compileKotlin.dependsOn(genCurring, genUncurring)
+compileKotlin.dependsOn(genCurring, genUncurring, genCurriedType, genUncurriedType)

@@ -33,7 +33,7 @@ package org.hoshino9.$packageName
 		buildString {
 			appendln(header)
 			append(gen())
-		}.let{ targetFile.writeText(it) }
+		}.let { targetFile.writeText(it) }
 	}
 
 	abstract fun gen() : String

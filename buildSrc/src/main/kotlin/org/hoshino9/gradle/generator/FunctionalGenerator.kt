@@ -1,54 +1,67 @@
 package org.hoshino9.gradle.generator
 
-private const val equal = "="
-private const val lambda = "->"
-private const val lambdaPrefix = "{"
-private const val lambdaPostfix = "}"
-private const val space = " "
-private const val functionKeyword = "fun"
-private const val parameterName = "f"
-private const val parameterPrefix = "("
-private const val parameterPostfix = ")"
-private const val typeChar = ":"
-private const val typePrefix = "<"
-private const val typePostfix = ">"
-private const val returnType = "R"
-private const val curringName = "curring"
-private const val uncurringName = "uncurring"
-private const val maxParameterCount = 22
+internal const val equal = "="
+internal const val lambda = "->"
+internal const val lambdaPrefix = "{"
+internal const val lambdaPostfix = "}"
+internal const val space = " "
+internal const val functionKeyword = "fun"
+internal const val typealiasKeyword = "typealias"
+internal const val parameterName = "f"
+internal const val parameterPrefix = "("
+internal const val parameterPostfix = ")"
+internal const val typeChar = ":"
+internal const val typePrefix = "<"
+internal const val typePostfix = ">"
+internal const val returnType = "R"
+internal const val curringName = "curring"
+internal const val uncurringName = "uncurring"
+internal const val curriedTypeName = "CurriedFunction"
+internal const val uncurriedTypeName = "UncurriedFunction"
+internal const val maxParameterCount = 22
 
-abstract class CurringBaseGenerator : Generator() {
-	override val packageName : String = "functional"
+internal fun comment(i : Int, isCurring : Boolean) : String = """/** A ${if (isCurring.not()) "un" else ""}curring function that takes $i argument${if (i > 1) "s" else ""} */"""
 
-	private fun comment(i : Int, isCurring : Boolean) : String = """/** A ${if (isCurring.not()) "un" else ""}curring funtion that takes $i argument${if (i > 1) "s" else ""} */"""
-	protected fun parameter(i : Int) : String = "p$i"
-	private fun type(i : Int) : String = "P$i"
-	private fun types(i : Int) : String = (0 until i).joinToString(transform = ::type)
+// p1
+internal fun parameter(i : Int) : String = "p$i"
 
-	protected fun uncurringParameterType(it : Int) : String {
-		return buildString {
-			append(parameterPrefix)
-			append(types(it))
-			append(parameterPostfix)
-			append(space)
-			append(lambda)
-			append(space)
-			append(returnType)
-		}
+// P1
+internal fun type(i : Int) : String = "P$i"
+
+// P1, P2, P3
+internal fun types(i : Int) : String = (0 until i).joinToString(transform = ::type)
+
+// (A, B) -> C
+internal fun uncurriedParameterType(it : Int) : String {
+	return buildString {
+		append(parameterPrefix)
+		append(types(it))
+		append(parameterPostfix)
+		append(space)
+		append(lambda)
+		append(space)
+		append(returnType)
 	}
+}
 
-	protected fun curringParameterType(it : Int) : String {
-		return buildString {
-			if (it == 0) {
-				append("() -> R")
-			} else {
-				0.until(it).joinTo(this, separator = " $lambda ", postfix = " $lambda $returnType") {
-					"(${type(it)})"
-				}
+// (A) -> (B) -> C
+internal fun curriedParameterType(it : Int) : String {
+	return buildString {
+		if (it == 0) {
+			append("() -> R")
+		} else {
+			0.until(it).joinTo(this, separator = " $lambda ", postfix = " $lambda $returnType") {
+				"(${type(it)})"
 			}
 		}
 	}
+}
 
+abstract class BaseGenerator : Generator() {
+	override val packageName : String = "functional"
+}
+
+abstract class CurringBaseGenerator : BaseGenerator() {
 	protected fun gen(isCurring : Boolean, fParameterType : (Int) -> String, fReturnLambdaType : (Int) -> String, functionBody : (Int) -> String) : String {
 		return buildString {
 			(0..maxParameterCount).forEach {
@@ -104,11 +117,11 @@ open class CurringGenerator : CurringBaseGenerator() {
 			if (i == max) {
 				append(parameterName)
 				if (1 <= max) (0 until max)
-					.joinTo(
-						this,
-						prefix = parameterPrefix,
-						postfix = parameterPostfix,
-						transform = ::parameter)
+						.joinTo(
+								this,
+								prefix = parameterPrefix,
+								postfix = parameterPostfix,
+								transform = ::parameter)
 			} else {
 				append(lambdaPrefix)
 				append(space)
@@ -124,7 +137,7 @@ open class CurringGenerator : CurringBaseGenerator() {
 	}
 
 	override fun gen() : String {
-		return this.gen(true, ::uncurringParameterType, ::curringParameterType, ::bodyCurring)
+		return super.gen(true, ::uncurriedParameterType, ::curriedParameterType, ::bodyCurring)
 	}
 }
 
@@ -149,6 +162,44 @@ open class UncurringGenerator : CurringBaseGenerator() {
 	}
 
 	override fun gen() : String {
-		return this.gen(false, ::curringParameterType, ::uncurringParameterType, ::bodyUncurring)
+		return super.gen(false, ::curriedParameterType, ::uncurriedParameterType, ::bodyUncurring)
+	}
+}
+
+abstract class BaseTypeAliasGenerator : BaseGenerator() {
+	protected fun gen(prefixName : String, generics : (Int) -> String, readType : (Int) -> String) : String {
+		return buildString {
+			(0..maxParameterCount).forEach {
+				append(typealiasKeyword)
+				append(space)
+				append(prefixName)
+				append(it)
+				append(typePrefix)
+				append(generics(it))
+				if (it > 0) append(", ")
+				append("R")
+				append(typePostfix)
+				append(space)
+				append(equal)
+				append(space)
+				appendln(readType(it))
+			}
+		}
+	}
+}
+
+open class CurriedTypeGenerator : BaseTypeAliasGenerator() {
+	override val fileName : String = "curried-typealias"
+
+	override fun gen() : String {
+		return gen(curriedTypeName, ::types, ::curriedParameterType)
+	}
+}
+
+open class UncurriedTypeGenerator : BaseTypeAliasGenerator() {
+	override val fileName : String = "uncurried-typealias"
+
+	override fun gen() : String {
+		return gen(uncurriedTypeName, ::types, ::uncurriedParameterType)
 	}
 }
