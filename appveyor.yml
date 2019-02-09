@@ -14,6 +14,9 @@ artifacts:
   - path: 'Functional/build/libs'
     name: Functional
 
+  - path: 'Koskell/build/libs'
+    name: Koskell
+
   - path: 'GsonExtra/build/libs'
     name: GsonExtra
 
