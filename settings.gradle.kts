@@ -5,5 +5,5 @@ include(
 		"GsonExtra",
 		"File",
 		"Functional",
-		"Koskell"
+		"MoreListComp"
 )

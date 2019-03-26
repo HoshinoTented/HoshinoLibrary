@@ -5,12 +5,5 @@ import org.hoshino9.gradle.generator.*
 
 val compileKotlin = tasks["compileKotlin"] as KotlinCompile
 val genShortDiv = task<ShortDivGenerator>("genShortDiv")
-val SourceSet.kotlin get() = (this as HasConvention).convention.getPlugin(KotlinSourceSet::class.java).kotlin
-
-sourceSets {
-	getByName("main") {
-		kotlin.srcDir("src/main/gen")
-	}
-}
 
 compileKotlin.dependsOn(genShortDiv)

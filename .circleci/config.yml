@@ -38,6 +38,8 @@ jobs:
             path: 'KotlinExtra/build/libs'
       - store_artifacts:
             path: 'OnlineCompiler/build/libs'
+      - store_artifacts:
+            path: 'MoreListComp/build/libs'
 
       # run tests!
       - run: gradle test

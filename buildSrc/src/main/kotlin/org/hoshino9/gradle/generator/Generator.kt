@@ -2,7 +2,6 @@ package org.hoshino9.gradle.generator
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
-import org.intellij.lang.annotations.Language
 
 abstract class Generator : DefaultTask(), Runnable {
 	abstract val packageName : String

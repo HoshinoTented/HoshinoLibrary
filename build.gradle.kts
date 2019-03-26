@@ -33,6 +33,14 @@ allprojects {
 		testImplementation(kotlin("test-junit", kotlinVersion))
 	}
 
+	sourceSets {
+		getByName("main") {
+			withConvention(KotlinSourceSet::class) {
+				kotlin.srcDirs("src/main/gen")
+			}
+		}
+	}
+
 	tasks.withType<KotlinCompile> {
 		kotlinOptions.jvmTarget = "1.8"
 	}
@@ -43,7 +51,7 @@ allprojects {
 
 	val sourcesJar = task<Jar>("sourcesJar") {
 		from(sourceSets.getByName("main").kotlin)
-		classifier = "sources"
+		archiveClassifier.set("sources")
 	}
 
 	artifacts {
