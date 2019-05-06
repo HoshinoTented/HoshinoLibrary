@@ -27,29 +27,3 @@ inline fun catchRun(lambda : () -> Unit) {
 		e.printStackTrace()
 	}
 }
-
-fun shell(command : String) : Pair<List<String>, List<String>> {
-	var process : Process? = null
-	var stdout = emptyList<String>()
-	var stderr = emptyList<String>()
-	try {
-		process = Runtime.getRuntime().exec(command).apply {
-			fun collectLines(it : InputStream) : List<String> {
-				val reader = it.bufferedReader()
-				val ret = reader.lines().collect(Collectors.toList())
-				forceRun(reader::close)
-				return ret
-			}
-
-			waitFor()
-			stdout = inputStream.use(::collectLines)
-			stderr = errorStream.use(::collectLines).apply {
-				forceRun(::destroy)
-			}
-		}
-	} catch (e : Throwable) {
-		process?.destroy()
-	}
-
-	return stdout to stderr
-}

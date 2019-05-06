@@ -1,16 +1,16 @@
 # idea
-.idea
+/.idea/
 *.iml
 
 # gradle
-.gradle
+.gradle/
 
 # output
-build
-out
+build/
+out/
 
 # gen
-gen
+gen/
 
 # test
 resources/
