@@ -30,7 +30,7 @@ constructor(val src : String, val range : IntRange = 0 until src.length) : CharS
 	override operator fun get(index : Int) : Char {
 		if (index.realIndex in range) {
 			return src[index.realIndex]
-		} else throw IndexOutOfBoundsException(index.toString())
+		} else throw StringIndexOutOfBoundsException(index.toString())
 	}
 
 	override fun subSequence(startIndex : Int, endIndex : Int) : RangedString {
@@ -60,10 +60,6 @@ constructor(val src : String, val range : IntRange = 0 until src.length) : CharS
 		result = 31 * result + range.hashCode()
 		return result
 	}
-}
-
-val RangedString.str : String get() {
-	return toString()
 }
 
 val String.asRangedString : RangedString get() {
