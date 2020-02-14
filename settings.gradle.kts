@@ -1,6 +1,12 @@
 include(
 		"KotlinExtra",
 		"GsonExtra",
-		"Functional",
 		"MoreListComp"
 )
+
+pluginManagement {
+	repositories {
+		maven("https://maven.aliyun.com/repository/gradle-plugin")
+		gradlePluginPortal()
+	}
+}

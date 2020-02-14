@@ -3,17 +3,20 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 
 /* I LOVE KOTLIN */
-
-var kotlinVersion : String by extra
-kotlinVersion = "1.3.10"
-
-group = "com.github.HoshinoTented"
-version = "1.0.91"
-
 plugins {
-	kotlin("jvm") version "1.3.10"
+	kotlin("jvm") version "1.3.61"
+	id("com.jfrog.bintray") version "1.8.4"
 	maven
+	java
+	`maven-publish`
 }
+
+val bintray_key: String by extra
+var kotlinVersion : String by extra
+kotlinVersion = "1.3.61"
+
+group = "org.hoshino9"
+version = "1.0.91"
 
 val SourceSet.kotlin get() = (this as HasConvention).convention.getPlugin(KotlinSourceSet::class.java).kotlin
 //val Project.sourceSets : SourceSetContainer get() = java.sourceSets
@@ -22,9 +25,15 @@ allprojects {
 	apply {
 		plugin("kotlin")
 		plugin("maven")
+		plugin("java")
+		plugin("com.jfrog.bintray")
+		plugin("maven-publish")
 	}
 
+	version = rootProject.version
+
 	repositories {
+		maven("https://maven.aliyun.com/repository/public")
 		jcenter()
 	}
 
@@ -60,4 +69,47 @@ allprojects {
 	}
 
 	tasks["clean"].dependsOn(cleanGen)
+}
+
+subprojects {
+	bintray {
+		user = "hoshinotented"
+		key = bintray_key
+		setPublications("maven")
+		setConfigurations("archives")
+
+		pkg.apply {
+			name = rootProject.name
+			repo = "hoshino9"
+			setLicenses("MIT")
+			publicDownloadNumbers = true
+			vcsUrl = "https://github.com/HoshinoTented/HoshinoLibrary.git"
+			version.apply {
+				vcsTag = rootProject.version.toString()
+				name = vcsTag
+				websiteUrl = "https://github.com/HoshinoTented/HoshinoLibrary/releases/tag/$vcsTag"
+			}
+		}
+	}
+
+	publishing {
+		publications {
+			create<MavenPublication>("maven") {
+				from(components["java"])
+				groupId = rootProject.group.toString()
+				artifactId = "${rootProject.name.toLowerCase()}-${project.name.toLowerCase()}"
+				version = rootProject.version.toString()
+
+				artifact(tasks["sourcesJar"])
+
+				pom.withXml {
+					val root = asNode()
+					root.appendNode("description", "Hoshino Library")
+					root.appendNode("name", project.name)
+					root.appendNode("url", "https://github.com/HoshinoTented/HoshinoLibrary")
+					root.children().last()
+				}
+			}
+		}
+	}
 }
